@@ -41,6 +41,7 @@ bool attacks(
 void searchWalled(
     const std::vector<int>& candidates,
     const std::vector<std::vector<unsigned char>>& conflict,
+    const std::vector<int>& cells,
     std::vector<int>& chosen,
     int n,
     int& bestCount,
@@ -62,7 +63,8 @@ void searchWalled(
             std::vector<std::pair<int, int>> board;
 
             for (int index : chosen) {
-                board.emplace_back(index / n, index % n);
+                int cell = cells[index];
+                board.emplace_back(cell / n, cell % n);
             }
 
             std::sort(board.begin(), board.end());
@@ -105,6 +107,7 @@ void searchWalled(
     searchWalled(
         includeCandidates,
         conflict,
+        cells,
         chosen,
         n,
         bestCount,
@@ -124,6 +127,7 @@ void searchWalled(
     searchWalled(
         excludeCandidates,
         conflict,
+        cells,
         chosen,
         n,
         bestCount,
@@ -199,6 +203,7 @@ std::vector<std::vector<std::pair<int, int>>> solveWalled(
     searchWalled(
         candidates,
         conflict,
+        cells,
         chosen,
         n,
         bestCount,
